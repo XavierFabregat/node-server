@@ -1,14 +1,17 @@
-import express from 'express';
-import './loadEnv';
+import './loadEnv.js';
+import app from './app.js';
+import { APP, DB } from './config/index.js';
+import sequelize from './models/index.js';
 
-const app = express();
-const PORT = process.env.PORT || 3000;
-const HOST = process.env.HOST || 'localhost';
+async function bootstrap() {
+  await sequelize.authenticate();
+  await sequelize.sync();
+  console.log(`🔗  Database connected: ${DB.NAME} ✅`); // eslint-disable-line no-console
+  app.listen(APP.PORT, () => {
+    console.log(`🚀 Server is running on http://${APP.HOST}:${APP.PORT} ✅`);
+  });
+}
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
-
-app.listen(PORT, () => {
-  console.log(`Server is running on http://${HOST}:${PORT}`);
+bootstrap().catch((error) => {
+  console.error('❌  🚨  Bootstrap Error:', error); // eslint-disable-line no-console
 });
