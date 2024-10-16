@@ -11,6 +11,17 @@ export const APP = {
   JWT_COOKIE_NAME: 'jwt',
 };
 
+export const TEST_DB = {
+  URL: process.env.TEST_DB_URL || 'postgres://localhost:5432/test_db',
+  NAME: process.env.TEST_DB_NAME || 'test_db',
+  LOGGING: false,
+  USER: process.env.TEST_DB_USER || 'postgres',
+  PASSWORD: process.env.TEST_DB_PASSWORD || '',
+  HOST: process.env.TEST_DB_HOST || 'localhost',
+  PORT: process.env.TEST_DB_PORT || '5432',
+  DIALECT: 'postgres' as const,
+};
+
 export const DB = {
   URL: process.env.DB_URL || 'sqlite::memory:',
   NAME: process.env.DB_NAME || 'default',

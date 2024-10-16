@@ -18,10 +18,15 @@
     "module": "NodeNext",
     "outDir": "dist",
     "sourceMap": true,
-    "rootDir": "src",
+    "rootDir": ".",
     /* If your code doesn't run in the DOM: */
-    "lib": [
-      "es2022"
-    ]
-  }
+    "lib": ["es2022"],
+    /* path alias */
+    "baseUrl": "./src/",
+    "paths": {
+      "@/*": ["*"]
+    }
+  },
+  "include": ["src/**/*.ts", "jest.config.js"],
+  "exclude": ["node_modules", "dist", "src/tests/**/*", "src/jest.config.js"]
 }

@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize-typescript';
 import type { SequelizeOptions } from 'sequelize-typescript';
 
 import path from 'path';
-import { DB, APP } from '../config/index';
+import { DB, APP, TEST_DB } from '../config/index';
 
 const sequelizeOptions: SequelizeOptions = { dialectOptions: {} };
 
@@ -11,13 +11,13 @@ if (APP.ENV === 'production') {
     ssl: { rejectUnauthorized: false },
   };
 }
-
-const sequelize = new Sequelize(DB.URL, {
+const dbConfig = APP.ENV === 'test' ? TEST_DB : DB;
+const sequelize = new Sequelize(dbConfig.URL, {
   storage: ':memory:',
-  logging: DB.LOGGING,
+  logging: dbConfig.LOGGING,
   modelPaths: [path.join(__dirname, '/**/*.model.*')],
   dialectOptions: sequelizeOptions.dialectOptions as object,
-  dialect: DB.DIALECT,
+  dialect: dbConfig.DIALECT,
   pool: {
     max: 15,
     min: 0,
