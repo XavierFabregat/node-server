@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize-typescript';
 import type { SequelizeOptions } from 'sequelize-typescript';
 
 import path from 'path';
-import { DB, APP } from '../config/index.js';
+import { DB, APP } from '../config/index';
 
 const sequelizeOptions: SequelizeOptions = { dialectOptions: {} };
 
@@ -17,6 +17,7 @@ const sequelize = new Sequelize(DB.URL, {
   logging: DB.LOGGING,
   modelPaths: [path.join(__dirname, '/**/*.model.*')],
   dialectOptions: sequelizeOptions.dialectOptions as object,
+  dialect: DB.DIALECT,
   pool: {
     max: 15,
     min: 0,

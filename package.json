@@ -8,7 +8,11 @@
     "build": "tsc",
     "start:dev": "nodemon dist/index.js",
     "start": "node dist/index.js",
-    "build:dev": "tsc -w"
+    "build:dev": "tsc -w",
+    "dev": "ts-node src/index.ts",
+    "db:migrate": "sequelize-cli db:migrate",
+    "db:migrate:undo": "sequelize-cli db:migrate:undo",
+    "db:migrate:undo:*": "sequelize-cli db:migrate:undo:all"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +27,7 @@
     "@types/uuid": "^10.0.0",
     "@types/validator": "^13.12.1",
     "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
     "typescript": "^5.6.2"
   },
   "dependencies": {

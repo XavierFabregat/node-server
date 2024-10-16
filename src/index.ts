@@ -1,7 +1,7 @@
-import './loadEnv.js';
-import app from './app.js';
-import { APP, DB } from './config/index.js';
-import sequelize from './models/index.js';
+import './loadEnv';
+import app from './app';
+import { APP, DB } from './config/index';
+import sequelize from './models/index';
 
 async function bootstrap() {
   await sequelize.authenticate();

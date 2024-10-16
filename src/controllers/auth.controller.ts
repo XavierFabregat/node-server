@@ -4,6 +4,11 @@ import User from '../models/user.model';
 import jwt from 'jsonwebtoken';
 import { APP } from '../config';
 import { sanitizeOutput } from '../utils/user.utils';
+import {
+  createAccessToken,
+  createRefreshToken,
+  sendRefreshToken,
+} from '../utils/auth.utils';
 
 export async function login(req: Request, res: Response) {
   const { email, password } = req.body;
@@ -24,16 +29,13 @@ export async function login(req: Request, res: Response) {
     return res.status(400).send('Invalid email/password');
   }
 
-  const token = jwt.sign({ id: user.id }, APP.JWT_SECRET!, { expiresIn: '1h' });
+  const accessToken = createAccessToken(user);
 
-  res.cookie('jwt', token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production', // Only set secure cookies over HTTPS
-    sameSite: 'lax', // Controls cross-site request behavior
-    maxAge: 60 * 60 * 1000, // 1 hour  });
-  });
+  sendRefreshToken(res, createRefreshToken(user));
 
-  return res.status(200).send(sanitizeOutput(user, true));
+  return res
+    .status(200)
+    .send({ user: sanitizeOutput(user, true), accessToken });
 }
 
 export async function register(req: Request, res: Response) {
@@ -56,16 +58,14 @@ export async function register(req: Request, res: Response) {
     lastName,
   });
 
-  const token = jwt.sign({ id: user.id }, APP.JWT_SECRET!, { expiresIn: '1h' });
+  const accessToken = createAccessToken(user);
 
-  res.cookie('jwt', token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    maxAge: 60 * 60 * 1000,
+  sendRefreshToken(res, createRefreshToken(user));
+
+  return res.status(201).send({
+    user: sanitizeOutput(user, true),
+    accessToken,
   });
-
-  return res.status(201).send(sanitizeOutput(user, true));
 }
 
 export function logout(req: Request, res: Response) {

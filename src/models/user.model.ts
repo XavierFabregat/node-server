@@ -17,9 +17,10 @@ interface UserAttributes {
   firstName: string;
   lastName: string;
   password: string;
+  tokenVersion: number;
 }
 
-interface UserCreationAttributes extends Omit<UserAttributes, 'id'> {}
+interface UserCreationAttributes extends Omit<UserAttributes, 'id' | 'tokenVersion'> { }
 
 @Table
 export default class User extends Model<
@@ -54,6 +55,10 @@ export default class User extends Model<
     allowNull: false,
   })
   password!: string;
+
+  @Default(0)
+  @Column({})
+  tokenVersion!: number;
 
   @CreatedAt
   @Column({
