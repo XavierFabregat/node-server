@@ -1,15 +1,13 @@
 import type { Request, Response } from 'express';
 import bcryptUtils from '../utils/crypto.utils';
 import User from '../models/user.model';
-import jwt from 'jsonwebtoken';
-import { APP } from '../config';
 import { sanitizeOutput } from '../utils/user.utils';
 import {
   createAccessToken,
   createRefreshToken,
   sendRefreshToken,
 } from '../utils/auth.utils';
-import { ResponseUtil } from '../utils/res.util';
+import { ResponseUtil } from '../utils/res.utils';
 
 export async function login(req: Request, res: Response) {
   const { email, password } = req.body;

@@ -18,9 +18,16 @@ interface UserAttributes {
   lastName: string;
   password: string;
   tokenVersion: number;
+  creationDate: Date;
+  updatedOn: Date;
+  deletionDate: Date;
 }
 
-interface UserCreationAttributes extends Omit<UserAttributes, 'id' | 'tokenVersion'> { }
+interface UserCreationAttributes
+  extends Omit<
+    UserAttributes,
+    'id' | 'tokenVersion' | 'creationDate' | 'updatedOn' | 'deletionDate'
+  > {}
 
 @Table
 export default class User extends Model<

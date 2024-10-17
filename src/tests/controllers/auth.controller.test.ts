@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { login, logout, register } from '../../controllers/auth.controller';
 import User from '../../models/user.model';
-import { ResponseUtil, StandardResponse } from '../../utils/res.util';
+import { ResponseUtil, StandardResponse } from '../../utils/res.utils';
 import { APP } from '../../config';
 import bcryptUtils from '../../utils/crypto.utils';
 

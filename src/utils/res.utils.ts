@@ -18,7 +18,7 @@ export class StandardResponse<T = any> {
     this.message = message;
     this.data = data;
     this.error = error;
-    this.statusCode = statusCode ?? 200;
+    this.statusCode = statusCode!;
   }
 
   static success<T>(
@@ -36,17 +36,10 @@ export class StandardResponse<T = any> {
   ): StandardResponse {
     return new StandardResponse(false, message, undefined, statusCode, error);
   }
-
-  send(res: Response) {
-    return res.status(this.statusCode).json(this);
-  }
 }
 
 export class ResponseUtil {
-  private static send<T>(
-    res: Response,
-    responseObject: StandardResponse<T>
-  ): void {
+  static send<T>(res: Response, responseObject: StandardResponse<T>): void {
     res.status(responseObject.statusCode).json(responseObject);
   }
 

@@ -7,5 +7,5 @@ module.exports = {
     '^.+\\.ts$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
-  setupFilesAfterEnv: ['<rootDir>/src/tests/setupTests.ts'],
+  // coveragePathIgnorePatterns: ['/node_modules/', '\\.d\\.ts$', '/src/models/'],
 };

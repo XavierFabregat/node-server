@@ -27,6 +27,11 @@
       "@/*": ["*"]
     }
   },
-  "include": ["src/**/*.ts", "jest.config.js"],
+  "include": [
+    "src/**/*.ts",
+    "jest.config.js",
+    "jest.globalTeradown.js",
+    "jest.globalSetup.js"
+  ],
   "exclude": ["node_modules", "dist", "src/tests/**/*", "src/jest.config.js"]
 }
