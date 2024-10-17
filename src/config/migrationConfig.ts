@@ -15,4 +15,4 @@ const production = {
   dialectOptions: { ssl: { rejectUnauthorized: false } },
 };
 
-export { development, production }; // eslint-disable-line import/prefer-default-export
+export { development, production };

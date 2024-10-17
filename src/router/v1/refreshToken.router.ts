@@ -1,11 +1,8 @@
 import { Router } from 'express';
 import { verify } from 'jsonwebtoken';
 import User from '../../models/user.model';
-import {
-  createAccessToken,
-  createRefreshToken,
-  sendRefreshToken,
-} from '../../utils/auth.utils';
+import { createAccessToken, createRefreshToken, sendRefreshToken } from '../../utils/auth.utils';
+import { RefreshJwtPayload } from '../../types/auth.types';
 
 const router = Router();
 
@@ -19,9 +16,9 @@ router.post('/', async (req, res) => {
       error: 'No token provided.',
     });
   }
-  let payload: any = null;
+  let payload: RefreshJwtPayload | null = null;
   try {
-    payload = verify(token, process.env.REFRESH_TOKEN_SECRET!);
+    payload = verify(token, process.env.REFRESH_TOKEN_SECRET!) as RefreshJwtPayload;
   } catch (error) {
     console.log('Error in refreshToken.router.ts:', error);
     return res.status(401).send({
@@ -32,7 +29,7 @@ router.post('/', async (req, res) => {
   }
 
   // token is valid and we can send back an access token
-  const user = await User.findOne({ where: { id: payload.userId as number } });
+  const user = await User.findOne({ where: { id: payload.userId as string } });
 
   if (!user) {
     console.log('Error in refreshToken.router.ts: no user');

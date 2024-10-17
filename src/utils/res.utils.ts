@@ -1,19 +1,13 @@
 import type { Response } from 'express';
 
-export class StandardResponse<T = any> {
+export class StandardResponse<T = unknown> {
   success: boolean;
   message: string;
   data?: T;
   error?: string;
   statusCode: number;
 
-  constructor(
-    success: boolean,
-    message: string,
-    data?: T,
-    statusCode?: number,
-    error?: string
-  ) {
+  constructor(success: boolean, message: string, data?: T, statusCode?: number, error?: string) {
     this.success = success;
     this.message = message;
     this.data = data;
@@ -24,16 +18,12 @@ export class StandardResponse<T = any> {
   static success<T>(
     data: T,
     message = 'Operation successful',
-    statusCode = 200
+    statusCode = 200,
   ): StandardResponse<T> {
     return new StandardResponse<T>(true, message, data, statusCode);
   }
 
-  static error(
-    error: string,
-    message = 'Operation failed',
-    statusCode = 400
-  ): StandardResponse {
+  static error(error: string, message = 'Operation failed', statusCode = 400): StandardResponse {
     return new StandardResponse(false, message, undefined, statusCode, error);
   }
 }
@@ -47,7 +37,7 @@ export class ResponseUtil {
     res: Response,
     data: T,
     message = 'Operation successful',
-    statusCode = 200
+    statusCode = 200,
   ): void {
     const response = StandardResponse.success(data, message, statusCode);
     this.send(res, response);
@@ -57,7 +47,7 @@ export class ResponseUtil {
     res: Response,
     error: string,
     message = 'Operation failed',
-    statusCode = 400
+    statusCode = 400,
   ): void {
     const response = StandardResponse.error(error, message, statusCode);
     this.send(res, response);

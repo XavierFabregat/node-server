@@ -5,7 +5,6 @@ jest.mock('bcrypt');
 
 describe('Crypto Utils', () => {
   const mockPassword = 'password123';
-  const badPassword = 'badPassword';
 
   describe('hashPassword', () => {
     it('should hash a password', async () => {
@@ -41,6 +40,9 @@ describe('Crypto Utils', () => {
       (bcrypt.compare as jest.Mock).mockResolvedValue(false);
 
       const result = await comparePassword(mockPassword, mockHash);
+
+      expect(result).toBe(false);
+      expect(bcrypt.compare).toHaveBeenCalledWith(mockPassword, mockHash);
     });
   });
 });

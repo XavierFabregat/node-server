@@ -3,7 +3,7 @@ import { DB, APP, TEST_DB } from '../config/index';
 
 export function createSequelizeInstance() {
   const config = APP.ENV === 'test' ? TEST_DB : DB;
-  const sequelizeOptions: any = {
+  const sequelizeOptions = {
     storage: ':memory:',
     logging: config.LOGGING,
     modelPaths: [__dirname + '/**/*.model.*'],

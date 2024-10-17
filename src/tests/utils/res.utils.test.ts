@@ -1,5 +1,5 @@
 import { StandardResponse, ResponseUtil } from '../../utils/res.utils';
-import { response, Response } from 'express';
+import { Response } from 'express';
 
 describe('ResponseUtil', () => {
   const mockResponse = {
@@ -18,7 +18,7 @@ describe('ResponseUtil', () => {
         statusCode: 200,
         success: true,
       };
-      jest.spyOn(ResponseUtil, 'send').mockImplementation((res, response) => {
+      jest.spyOn(ResponseUtil, 'send').mockImplementation((res) => {
         res.status(res.statusCode).json({
           success: true,
           message: 'Operation successful',
@@ -31,10 +31,7 @@ describe('ResponseUtil', () => {
       });
 
       // expect send to be called with the response
-      expect(ResponseUtil.send).toHaveBeenCalledWith(
-        mockResponse,
-        mockStandardSuccessResponse
-      );
+      expect(ResponseUtil.send).toHaveBeenCalledWith(mockResponse, mockStandardSuccessResponse);
     });
 
     it('should send a standard error response', () => {
@@ -46,7 +43,7 @@ describe('ResponseUtil', () => {
         success: false,
       };
 
-      jest.spyOn(ResponseUtil, 'send').mockImplementation((res, response) => {
+      jest.spyOn(ResponseUtil, 'send').mockImplementation((res) => {
         res.status(res.statusCode).json({
           success: false,
           message: 'Operation failed',
@@ -56,10 +53,7 @@ describe('ResponseUtil', () => {
 
       ResponseUtil.sendError(mockResponse, 'test');
 
-      expect(ResponseUtil.send).toHaveBeenCalledWith(
-        mockResponse,
-        mockStandardErrorResponse
-      );
+      expect(ResponseUtil.send).toHaveBeenCalledWith(mockResponse, mockStandardErrorResponse);
     });
   });
 

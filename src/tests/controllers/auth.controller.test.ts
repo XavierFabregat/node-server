@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { login, logout, register } from '../../controllers/auth.controller';
 import User from '../../models/user.model';
-import { ResponseUtil, StandardResponse } from '../../utils/res.utils';
+import { StandardResponse } from '../../utils/res.utils';
 import { APP } from '../../config';
 import bcryptUtils from '../../utils/crypto.utils';
 
@@ -51,9 +51,9 @@ describe('Auth Controller', () => {
               accessToken: expect.any(String),
             },
             'Operation successful',
-            200
-          )
-        )
+            200,
+          ),
+        ),
       );
 
       expect(mockResponse.cookie).toHaveBeenCalledWith(
@@ -63,7 +63,7 @@ describe('Auth Controller', () => {
           httpOnly: true,
           secure: false, // assuming NODE_ENV is not 'production' in tests
           sameSite: 'lax',
-        })
+        }),
       );
     });
 
@@ -74,12 +74,8 @@ describe('Auth Controller', () => {
 
       expect(mockResponse.json).toHaveBeenCalledWith(
         expect.objectContaining(
-          StandardResponse.error(
-            'Missing required fields',
-            'Operation failed',
-            400
-          )
-        )
+          StandardResponse.error('Missing required fields', 'Operation failed', 400),
+        ),
       );
     });
 
@@ -90,12 +86,8 @@ describe('Auth Controller', () => {
 
       expect(mockResponse.json).toHaveBeenCalledWith(
         expect.objectContaining(
-          StandardResponse.error(
-            'This email is already in use.',
-            'Operation failed',
-            400
-          )
-        )
+          StandardResponse.error('This email is already in use.', 'Operation failed', 400),
+        ),
       );
     });
   });
@@ -108,12 +100,8 @@ describe('Auth Controller', () => {
 
       expect(mockResponse.json).toHaveBeenCalledWith(
         expect.objectContaining(
-          StandardResponse.error(
-            'Missing required fields',
-            'Operation failed',
-            400
-          )
-        )
+          StandardResponse.error('Missing required fields', 'Operation failed', 400),
+        ),
       );
     });
 
@@ -124,12 +112,8 @@ describe('Auth Controller', () => {
 
       expect(mockResponse.json).toHaveBeenCalledWith(
         expect.objectContaining(
-          StandardResponse.error(
-            'Invalid email/password',
-            'Operation failed',
-            400
-          )
-        )
+          StandardResponse.error('Invalid email/password', 'Operation failed', 400),
+        ),
       );
     });
 
@@ -141,12 +125,8 @@ describe('Auth Controller', () => {
 
       expect(mockResponse.json).toHaveBeenCalledWith(
         expect.objectContaining(
-          StandardResponse.error(
-            'Invalid email/password',
-            'Operation failed',
-            400
-          )
-        )
+          StandardResponse.error('Invalid email/password', 'Operation failed', 400),
+        ),
       );
     });
 
@@ -157,12 +137,8 @@ describe('Auth Controller', () => {
 
       expect(mockResponse.json).toHaveBeenCalledWith(
         expect.objectContaining(
-          StandardResponse.error(
-            'Invalid email/password',
-            'Operation failed',
-            400
-          )
-        )
+          StandardResponse.error('Invalid email/password', 'Operation failed', 400),
+        ),
       );
     });
 
@@ -180,9 +156,9 @@ describe('Auth Controller', () => {
               accessToken: expect.any(String),
             },
             'Operation successful',
-            200
-          )
-        )
+            200,
+          ),
+        ),
       );
     });
   });
@@ -199,9 +175,9 @@ describe('Auth Controller', () => {
               status: 200,
             },
             'Operation successful',
-            200
-          )
-        )
+            200,
+          ),
+        ),
       );
 
       expect(mockResponse.cookie).toHaveBeenCalledWith(
@@ -212,7 +188,7 @@ describe('Auth Controller', () => {
           secure: false,
           sameSite: 'lax',
           expires: expect.any(Date),
-        })
+        }),
       );
     });
   });
