@@ -1,5 +1,4 @@
 import '../../loadEnv';
-import { DataType } from 'sequelize-typescript';
 import User from '../../models/user.model';
 import sequelize from '../../models';
 

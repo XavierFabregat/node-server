@@ -7,5 +7,5 @@ module.exports = {
     '^.+\\.ts$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
-  // coveragePathIgnorePatterns: ['/node_modules/', '\\.d\\.ts$', '/src/models/'],
+  coveragePathIgnorePatterns: ['/node_modules/', '\\.d\\.ts$', '/src/config/'],
 };
